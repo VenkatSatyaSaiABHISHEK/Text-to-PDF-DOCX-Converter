@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text to File Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+ /* Body setup */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Light Mode Colors */
+body.light {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Dark Mode Colors */
+body.dark {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+/* Header */
+h1 {
+    margin-bottom: 20px;
+    color: inherit;
+    transition: color 0.3s;
+}
+
+/* Form styling */
+form {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 700px;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+/* Light Mode form */
+body.light form {
+    background-color: #ffffff;
+}
+
+/* Dark Mode form */
+body.dark form {
+    background-color: #333;
+}
+
+/* Textarea styling */
+textarea {
+    width: 100%;
+    height: 250px;
+    padding: 15px;
+    font-size: 16px;
+    resize: vertical;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s;
+}
+
+/* Button styling */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 25px;
+    margin: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Mobile responsiveness */
+@media only screen and (max-width: 600px) {
+    form {
+        padding: 20px;
+        width: 90%;
+        height: auto; /* Allow the form to stretch vertically on small screens */
+        min-height: 450px; /* Add a minimum height to ensure the form has enough space */
+    }
+
+    textarea {
+        height: 300px; /* Increase the height of the textarea for better user experience on mobile */
+        font-size: 14px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 14px;
+        width: 100%;
+        margin: 10px 0;
+    }
+}
+
+/* Day/Night Mode Button */
+#mode-toggle {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+#mode-toggle:hover {
+    background-color: #555;
+}
+    </style>
+</head>
+<body>
+    <h1>Text to PDF/DOCX Converter</h1>
+    <form action="/convert" method="POST">
+        <textarea name="text" placeholder="Paste your text/code here..."></textarea><br>
+        <button type="submit" name="format" value="pdf">Download as PDF</button>
+        <button type="submit" name="format" value="docx">Download as DOCX</button>
+    </form>
+    <button id="mode-toggle">Toggle Day/Night Mode</button>
+    <script>
+        // Check localStorage for previously saved mode and apply it
+        const currentMode = localStorage.getItem('mode') || 'light';
+        document.body.classList.add(currentMode);
+    
+        // Toggle mode on button click
+        function toggleMode() {
+            const newMode = document.body.classList.contains('light') ? 'dark' : 'light';
+            document.body.classList.remove('light', 'dark');
+            document.body.classList.add(newMode);
+            localStorage.setItem('mode', newMode); // Save mode to localStorage
+        }
+    
+        // Add event listener to the toggle button
+        document.getElementById('mode-toggle').addEventListener('click', toggleMode);
+    </script>
+    
+</body>
+
+
+</html>
